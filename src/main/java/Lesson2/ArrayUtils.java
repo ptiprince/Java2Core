@@ -8,7 +8,7 @@ public class ArrayUtils {
                 throw new MyArraySizeException(strings.length);
             }
         } catch (MyArraySizeException e) {
-            System.out.println("Wrong number of lines!");
+            System.out.println("Wrong number of lines! But sum of array's elements is calculated: ");
         }
         try {
             for (String[] arr : strings) {
@@ -17,7 +17,7 @@ public class ArrayUtils {
                 }
             }
         } catch (MyArraySizeException e){
-            System.out.println("Wrong number of elements!");
+            System.out.println("Wrong number of elements! But sum of array's elements is calculated: ");
         }
         int sum = 0;
         for (int i = 0; i < strings.length; i++) {
@@ -36,13 +36,14 @@ public class ArrayUtils {
         String[][] strings = { {"5", "6", "5", "6"},
                 {"8", "7", "8", "7"},
                 {"2","3", "4", "5"},
+                {"5", "4", "3", "2"},
                 {"5", "4", "3", "2"}};
         System.out.println(arraySum(strings));
 
         String[][] strings2 = { {"5", "6", "5", "6"},
                 {"8", "7", "8", "7", "8"},
                 {"2","3", "4", "5", "6"},
-                {"5", "4", "3", "2"}};
+                {"5", "4", "3", "9"}};
         System.out.println(arraySum(strings2));
         String[][] strings3 = { {"5", "6", "5", "6"},
                 {"8", "I", "8", "7"},
