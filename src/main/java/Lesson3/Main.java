@@ -38,6 +38,8 @@ public class Main {
         System.out.println(appleBox);
         System.out.println(appleBox2);
         System.out.println();
+        System.out.println(appleBox.getBoxWeight());
+        System.out.println();
 
         Box<Orange> orangeBox = new Box<>();
         orangeBox.addProperFruit(new Orange());
@@ -54,6 +56,9 @@ public class Main {
         orangeBox.pourFruits(orangeBox2);
         System.out.println(orangeBox);
         System.out.println(orangeBox2);
+        System.out.println();
+        System.out.println(orangeBox.getBoxWeight());
+        System.out.println();
 
     }
 }
