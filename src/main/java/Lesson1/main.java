@@ -4,7 +4,7 @@ package Lesson1;
 // Implemented methods: setAge and check on validity; swim, rum, jump (for courses), feeding after race,
 // counting of team members, information about team members on different stages.
 public class main {
-    public static void main(String[] args0) {
+    public static void main(String[] args) {
         Course[] courses ={ new Course(2), new Course(5), new Course(7)};
         Teamcat[] teamcats = new Teamcat[5];
         Teamcat teamcat1 = new Teamcat("Barsik", "White", 5, 0, 130, 2, 5);
