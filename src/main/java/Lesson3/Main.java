@@ -2,8 +2,6 @@ package Lesson3;
 
 // #1 I swap all odds and even elements.
 
-import Lesson2.MyArraySizeException;
-
 import java.util.Arrays;
 
 public class Main {
@@ -17,7 +15,7 @@ public class Main {
         System.out.println(Arrays.toString(array));
     }
 
-    public static void main(String[] args) throws MyArraySizeException {
+    public static void main(String[] args) throws MyListSizeException {
         String[] array = {"live", "I", "New York", "in"};
         swapArrayElements(array);
         System.out.println();
@@ -59,6 +57,7 @@ public class Main {
         System.out.println();
         System.out.println(orangeBox.getBoxWeight());
         System.out.println();
+        System.out.println(orangeBox2.getBoxWeight());
 
     }
 }

@@ -20,14 +20,15 @@ public class Box<T extends Fruit> {
     public void addProperFruit(T fruit) {
         fruitsList.add(fruit);
     }
-    public float getBoxWeight() throws MyArraySizeException {
-        if (fruitsList.size() == 0) {
-            throw new MyArraySizeException(0);
+    public float getBoxWeight() throws MyListSizeException {
+        //if (fruitsList.size() == 0) {
+        if (fruitsList.isEmpty()) {
+            throw new MyListSizeException(0);
         } else {
             return fruitsList.size() * fruitsList.get(0).weight;
         }
     }
-    public boolean compareWeight(Box<?> box) throws MyArraySizeException {
+    public boolean compareWeight(Box<?> box) throws MyListSizeException {
         return getBoxWeight() == box.getBoxWeight();
     }
     public void pourFruits(Box<T> box) {
