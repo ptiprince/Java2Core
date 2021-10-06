@@ -25,7 +25,10 @@ public class Main {
         }
 
         out.println();
-        out.println(zooListArrayList);
+        //to print the entry from new line
+        for (ZooList list : zooListArrayList) {
+            out.println(list);
+        }
         //I want to convert ArrayList into csv file
         try (PrintWriter printWriter = new PrintWriter("zoolist_new.txt")) {
             for (ZooList zooList : zooListArrayList) {
