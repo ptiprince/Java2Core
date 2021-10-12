@@ -15,7 +15,7 @@ public class WeatherRequestHomeWork6 {
                 .retryOnConnectionFailure(true)
                 .build();
 
-        HttpUrl url = new HttpUrl.Builder()
+        HttpUrl httpUrl = new HttpUrl.Builder()
                 .scheme("http")
                 .host("dataservice.accuweather.com")
                 .addPathSegment("/")
