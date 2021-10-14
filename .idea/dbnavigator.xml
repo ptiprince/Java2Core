@@ -26,22 +26,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="f698118b-f3dc-4991-93ca-10dd5b3f8858">
-        <schema name="main" object-types="table, view, constraint, index, column, dataset trigger" />
+        <schema name="main" object-types="table, view, column" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f698118b-f3dc-4991-93ca-10dd5b3f8858">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[create table students (id integer primary key autoincrement, name text, score integer)
-create table course (id integer primary key autoincrement, name text)
-
-insert into students (name, score) values ('Johnson', 8)
-insert into students (name, score) values ('Smith', 9)
-insert into students (name, score) values ('Patterson', 5)
-insert into students (name, score) values ('Hanks', 10)
-insert into students (name, score) values ('Hoffman', 8)
-select * from students
-update students set score = 10 where name = 'Johnson'
+      <console name="Connection" type="STANDARD" schema="main" session="Main">update students set score = 10 where name = 'Johnson'
 delete from students where name = 'Johnson'
 select score from students where name = 'Hanks'
 select name from students where score = 8
@@ -65,19 +56,26 @@ insert into students (name, score, fac_id) values ('Nicholson', 8, 2)
 insert into students (name, score, fac_id) values ('Berry', 9, 5)
 insert into students (name, score, fac_id) values ('Malcovich', 10, 6)
 
+select * from students
 select * from students s join faculties f on s.fac_id = f.id
 select s.name, s.score, f.name from students s join faculties f on s.fac_id = f.id
-select s.name, f.name from students s left join faculties f on s.fac_id = f.id]]></console>
+select s.name, f.name from students s left join faculties f on s.fac_id = f.id
+
+update students set name = 'Malkovich' where name = 'Malcovich'
+delete from students where name = 'Jackson'
+select * from students where name like 'J%'</console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="f698118b-f3dc-4991-93ca-10dd5b3f8858" object-ref="consoles/Connection" />
       <object connection-id="f698118b-f3dc-4991-93ca-10dd5b3f8858" object-ref="schemas/main/tables/sqlite_sequence" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="f698118b-f3dc-4991-93ca-10dd5b3f8858" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="f698118b-f3dc-4991-93ca-10dd5b3f8858" dataset="main.sqlite_sequence" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
