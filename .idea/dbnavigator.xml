@@ -26,13 +26,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="f698118b-f3dc-4991-93ca-10dd5b3f8858">
-        <schema name="main" object-types="table, view, column" />
+        <schema name="main" object-types="table, view, constraint, index, column, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f698118b-f3dc-4991-93ca-10dd5b3f8858">
-      <console name="Connection" type="STANDARD" schema="main" session="Main">update students set score = 10 where name = 'Johnson'
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[update students set score = 10 where name = 'Johnson'
 delete from students where name = 'Johnson'
 select score from students where name = 'Hanks'
 select name from students where score = 8
@@ -63,12 +63,14 @@ select s.name, f.name from students s left join faculties f on s.fac_id = f.id
 
 update students set name = 'Malkovich' where name = 'Malcovich'
 delete from students where name = 'Jackson'
-select * from students where name like 'J%'</console>
+select * from students where name like 'J%'
+create table weather (id integer primary key autoincrement , cityName text, weatherText text, degrees int)
+insert into weather (cityName, weatherText, degrees) values ('Moscow', 'Cloudy', 12)]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="f698118b-f3dc-4991-93ca-10dd5b3f8858" object-ref="schemas/main/tables/sqlite_sequence" />
+      <object connection-id="f698118b-f3dc-4991-93ca-10dd5b3f8858" object-ref="consoles/Connection" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">

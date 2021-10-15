@@ -16,7 +16,7 @@ public class Controller {
 
     public  void getWeather(String commandInput, String selectedCity) throws IOException {
         Integer integerCommand = Integer.parseInt(commandInput);
-        //TODO: check on incorrect User input
+
         if (!choiceForForecast.containsKey(integerCommand)){
             throw new IOException("There is no choice for key entered" + integerCommand);
         }

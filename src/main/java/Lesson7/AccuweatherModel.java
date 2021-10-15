@@ -1,14 +1,12 @@
 package Lesson7;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
 import java.io.IOException;
-import java.util.Objects;
 
 public class AccuweatherModel implements WeatherModel{
     //http://dataservice.accuweather.com/currentconditions/v1 - link for CURRENT forecast
@@ -28,53 +26,57 @@ public class AccuweatherModel implements WeatherModel{
 
     private static OkHttpClient okHttpClient = new OkHttpClient();
     private static ObjectMapper objectMapper = new ObjectMapper();
-    //static ObjectMapper objectMapper2 = new ObjectMapper();
 
    public void getWeather(String selectedCity, Period period) throws IOException {
-        if (period == Period.NOW) {
-          HttpUrl httpUrl = new HttpUrl.Builder()
-                  .scheme(PROTOCOL)
+       if (period == Period.NOW) {
+           HttpUrl httpUrl = new HttpUrl.Builder()
+                   .scheme(PROTOCOL)
                    .host(BASE_HOST)
-                .addPathSegment(CURRENT_CONDITIONS)
-                  .addPathSegment(VERSION)
-                   .addPathSegment(getCityKey(selectedCity))
-                  .addQueryParameter("apikey", API_KEY)
-                  .build();
-             Request request = new Request.Builder()
-                    .url(httpUrl)
-                   .build();
-            Response response = okHttpClient.newCall(request).execute();
-            String responseString = response.body().string();
-            String weatherText = objectMapper.readTree(responseString).get(0).at("/WeatherText").asText();
-            Integer degrees = objectMapper.readTree(responseString).get(0).at("/Temperature/Metric/Value").asInt();
-            Weather weather = new Weather(selectedCity, weatherText, degrees);
-            System.out.println(weather);
-
-            //System.out.println(response.body().string());
-            //TODO Organize input in readable form
-       }
-       if (period == Period.FIVE_DAYS) {
-            HttpUrl httpUrl = new HttpUrl.Builder()
-                    .scheme(PROTOCOL)
-                    .host(BASE_HOST)
-                  .addPathSegment(FORECASTS)
+                   .addPathSegment(CURRENT_CONDITIONS)
                    .addPathSegment(VERSION)
-                    .addPathSegment(DAILY)
-                   .addPathSegment(FIVE_DAYS)
-                  .addPathSegment(getCityKey(selectedCity))
-                    .addQueryParameter("apikey", API_KEY)
+                   .addPathSegment(getCityKey(selectedCity))
+                   .addQueryParameter("apikey", API_KEY)
                    .build();
            Request request = new Request.Builder()
                    .url(httpUrl)
-                    .build();
-            Response response = okHttpClient.newCall(request).execute();
-            String responseFive = response.body().string();
-            //String forecastFive = objectMapper.readTree(responseFive).get(1).at("/Date").asText();
-          //System.out.println(forecastFive);
-           System.out.println(responseFive);
-          // System.out.println(response.body().string());
+                   .build();
+           Response response = okHttpClient.newCall(request).execute();
+           String responseString = response.body().string();
+           String weatherText = objectMapper.readTree(responseString).get(0).at("/WeatherText").asText();
+           Integer degrees = objectMapper.readTree(responseString).get(0).at("/Temperature/Metric/Value").asInt();
+           Weather weather = new Weather(selectedCity, weatherText, degrees);
+           System.out.println(weather);
        }
-    }
+
+       if (period == Period.FIVE_DAYS) {
+           HttpUrl httpUrl = new HttpUrl.Builder()
+                   .scheme(PROTOCOL)
+                   .host(BASE_HOST)
+                   .addPathSegment(FORECASTS)
+                   .addPathSegment(VERSION)
+                   .addPathSegment(DAILY)
+                   .addPathSegment(FIVE_DAYS)
+                   .addPathSegment(getCityKey(selectedCity))
+                   .addQueryParameter("apikey", API_KEY)
+                   .build();
+           Request request = new Request.Builder()
+                   .url(httpUrl)
+                   .build();
+           Response response = okHttpClient.newCall(request).execute();
+           String responseFive = response.body().string();
+           for (int i = 0; i < 5; i++) {
+               String date = objectMapper.readTree(responseFive).at("/DailyForecasts").get(i).at("/Date").asText();
+               Integer temperatureMinimum = objectMapper.readTree(responseFive).at("/DailyForecasts").get(i).at("/Temperature/Minimum/Value").asInt();
+               Integer temperatureMaximum = objectMapper.readTree(responseFive).at("/DailyForecasts").get(i).at("/Temperature/Maximum/Value").asInt();
+               String weatherTextDay = objectMapper.readTree(responseFive).at("/DailyForecasts").get(i).at("/Day/IconPhrase").asText();
+               String weatherTextNight = objectMapper.readTree(responseFive).at("/DailyForecasts").get(i).at("/Night/IconPhrase").asText();
+               WeatherFiveDays weatherFiveDays = new WeatherFiveDays(selectedCity, date, temperatureMinimum, temperatureMaximum,
+                       weatherTextDay, weatherTextNight);
+               System.out.println(weatherFiveDays);
+               System.out.println();
+           }
+       }
+   }
 
     public static String getCityKey(String city) throws IOException {
         HttpUrl httpUrl1 = new HttpUrl.Builder()
@@ -85,7 +87,7 @@ public class AccuweatherModel implements WeatherModel{
                 .addPathSegment(CITIES)
                 .addPathSegment(AUTOCOMPLETE)
                 .addQueryParameter("apikey", API_KEY)
-                //required parameter cty is sent to the method too (String city)
+                //required parameter city is sent to the method too (String city)
                 .addQueryParameter("q", city)
                 .build();
         Request request = new Request.Builder()
