@@ -5,6 +5,7 @@ public final class ApplicationGlobalState {
     private static ApplicationGlobalState INSTANCE;
     private String selectedCity = null;
     private final String API_KEY = "P2fOkl6jGKwqQT2AqFpATAdfyTLb1YOU";
+   private final String DB_FILENAME = "geekbrains.db";
 
     private ApplicationGlobalState() {
     }
@@ -18,6 +19,7 @@ public final class ApplicationGlobalState {
         return INSTANCE;
     }
 
+    public String getDbFilename () { return DB_FILENAME; }
     public String getSelectedCity() { return selectedCity; }
     public void setSelectedCity(String SelectedCity) { this.selectedCity = selectedCity;}
     public String getApiKey() { return this.API_KEY; }

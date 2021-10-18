@@ -1,12 +1,14 @@
 package Lesson7;
 
+import Lesson7.entity.Weather;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
+import java.util.List;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class AccuweatherModel implements WeatherModel{
     //http://dataservice.accuweather.com/currentconditions/v1 - link for CURRENT forecast
@@ -26,8 +28,9 @@ public class AccuweatherModel implements WeatherModel{
 
     private static OkHttpClient okHttpClient = new OkHttpClient();
     private static ObjectMapper objectMapper = new ObjectMapper();
+    private DataBaseRepositorySQLite dataBaseRepository = new DataBaseRepositorySQLite();
 
-   public void getWeather(String selectedCity, Period period) throws IOException {
+   public void getWeather(String selectedCity, Period period) throws IOException, SQLException {
        if (period == Period.NOW) {
            HttpUrl httpUrl = new HttpUrl.Builder()
                    .scheme(PROTOCOL)
@@ -42,10 +45,13 @@ public class AccuweatherModel implements WeatherModel{
                    .build();
            Response response = okHttpClient.newCall(request).execute();
            String responseString = response.body().string();
+           String localDate = objectMapper.readTree(responseString).get(0).at("/LocalObservationDateTime").asText();
            String weatherText = objectMapper.readTree(responseString).get(0).at("/WeatherText").asText();
-           Integer degrees = objectMapper.readTree(responseString).get(0).at("/Temperature/Metric/Value").asInt();
-           Weather weather = new Weather(selectedCity, weatherText, degrees);
+           Double degrees = objectMapper.readTree(responseString).get(0).at("/Temperature/Metric/Value").asDouble();
+           Weather weather = new Weather(selectedCity, localDate, weatherText, degrees);
            System.out.println(weather);
+           DataBaseRepositorySQLite dataBaseRepository = new DataBaseRepositorySQLite();
+           dataBaseRepository.saveWeatherToDataBase(weather);
        }
 
        if (period == Period.FIVE_DAYS) {
@@ -76,6 +82,12 @@ public class AccuweatherModel implements WeatherModel{
                System.out.println();
            }
        }
+   }
+
+   @Override
+   public List<Weather> getSavedToDBWeather(){
+
+       return dataBaseRepository.getSavedToDBWeather();
    }
 
     public static String getCityKey(String city) throws IOException {

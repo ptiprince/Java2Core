@@ -1,8 +1,7 @@
 package Lesson7;
 
-import javax.imageio.IIOException;
 import java.io.IOException;
-import java.util.Locale;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserInterfaceView {
@@ -15,8 +14,8 @@ public class UserInterfaceView {
             String city = scanner.nextLine();
             setGlobalCity(city);
 
-            System.out.println("Please enter chosen forecast: 1 - current forecast, " + "5 - forecast for the next 5 days, "
-                    + "exit - finish and exit application");
+            System.out.println("Please enter chosen forecast: 1 - forecast for today, " + "5 - forecast for the next 5 days, "
+                    + "2 - for the forecast from Data Base, " + "exit - finish and exit application");
             String command = scanner.nextLine();
 
             checkIsExit(command);
@@ -34,7 +33,7 @@ public class UserInterfaceView {
 
             try {
                 controller.getWeather(command, city);
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }
