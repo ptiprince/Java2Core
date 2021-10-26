@@ -1,0 +1,6 @@
+1;Lion;3;predator
+2;Giraffe;5;herbivorous
+3;Elephant;2;herbivorous
+4;Cheetah;2;predator
+5;Gorilla;10;herbivorous
+6;Hyenna;5;predator

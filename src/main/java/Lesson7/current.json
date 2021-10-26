@@ -1,0 +1,24 @@
+ [{
+    "LocalObservationDateTime": "2021-10-14T09:59:00-04:00",
+    "EpochTime": 1634219940,
+    "WeatherText": "Sunny",
+    "WeatherIcon": 1,
+    "HasPrecipitation": false,
+    "PrecipitationType": null,
+    "IsDayTime": true,
+    "Temperature": {
+      "Metric": {
+        "Value": 17.8,
+        "Unit": "C",
+        "UnitType": 17
+      },
+      "Imperial": {
+        "Value": 64,
+        "Unit": "F",
+        "UnitType": 18
+      }
+    },
+    "MobileLink": "http://www.accuweather.com/en/us/new-york-ny/10007/current-weather/349727?lang=en-us",
+    "Link": "http://www.accuweather.com/en/us/new-york-ny/10007/current-weather/349727?lang=en-us"
+  }
+   ]

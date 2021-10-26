@@ -1,0 +1,6 @@
+#: 1; type: predator; animal: Lion; quantity: 3
+#: 2; type: herbivorous; animal: Giraffe; quantity: 5
+#: 3; type: herbivorous; animal: Elephant; quantity: 2
+#: 4; type: predator; animal: Cheetah; quantity: 2
+#: 5; type: herbivorous; animal: Gorilla; quantity: 10
+#: 6; type: predator; animal: Hyenna; quantity: 5
