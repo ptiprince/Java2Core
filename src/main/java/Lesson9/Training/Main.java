@@ -2,10 +2,11 @@ package Lesson9.Training;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         List<Organization> organizations = Arrays.asList(
                 new Organization(1, "Project1", Arrays.asList(
                         new Employee("John", "Johnson", 33, Employee.Position.ENGINEER, 2000),
@@ -29,7 +30,7 @@ public class Main {
                 .map(o -> o.getEmployeeList())
                 .flatMap(e -> e.stream())
                 .map(e -> {
-                    return "\n" +e.getFirstName() + " " + e.getLastName() + ": " + e.getPosition();
+                    return "\n" + e.getFirstName() + " " + e.getLastName() + ": " + e.getPosition();
                 })
                 .distinct()
                 .collect(Collectors.toList()));
@@ -48,5 +49,18 @@ public class Main {
                 .map(e -> e.getEmployeeList())
                 .flatMap(p -> p.stream())
                 .collect(Collectors.groupingBy(f -> f.getPosition(), Collectors.averagingDouble(f -> f.getPayCheck()))));
+        System.out.println();
+
+        //Calculate total payCheck; class Optional can check on NullPointerException
+        Optional<Integer> payCheckResult;
+        payCheckResult = organizations.stream()
+                .map(e -> e.getEmployeeList())
+                .flatMap(p -> p.stream())
+                .map(e ->  e.getPayCheck())
+                .distinct()
+                .reduce(Integer::sum);
+        Integer result = payCheckResult.orElse(null);
+        System.out.println("Total Pay Check is " + result);
+
     }
 }
